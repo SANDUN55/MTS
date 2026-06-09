@@ -1,0 +1,76 @@
+<?php
+include 'database.php';
+database_conectivity();
+if(count($_POST) > 0){
+	if($_POST['type'] == 1){
+		$mc = strtoupper(trim($_POST['mcode']));
+		$mn = trim($_POST['mname']);
+		$mp = strtoupper(trim($_POST['selectPhase']));
+		$ms = strtoupper(trim($_POST['selectStrand']));
+		$mcgen = $mc.$mp;
+		$sql = "INSERT INTO `module`( `m_code`, `m_name`, `m_phase`, `m_strand`) VALUES ('$mcgen', '$mn', $mp, $ms)";
+		if (mysqli_query($conn, $sql)) {
+			echo json_encode(array("statusCode" => 200));
+            $logAction = "Add Module success " . addslashes($sql);
+		} 
+		else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $logAction = "Add Module error " . addslashes($sql);
+		}
+        writeLog($logAction);
+		mysqli_close($conn);
+	}
+}
+if(count($_POST) > 0){
+	if($_POST['type'] == 2){
+		$id = $_POST['id'];
+		$code = $_POST['mcode'];
+		$name = $_POST['mname'];
+		$phase = $_POST['selectPhase'];
+        $strand = $_POST['selectStrand'];
+		$sql = "UPDATE `module` SET `m_code` = '$code', `m_name` = '$name', `m_phase` = $phase, `m_strand` = $strand WHERE m_code = '$id'";
+		if (mysqli_query($conn, $sql)) {
+			echo json_encode(array("statusCode" => 200));
+            $logAction = "Edit Module success " . addslashes($sql);
+		} 
+		else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $logAction = "Edit Module error " . addslashes($sql);
+		}
+		writeLog($logAction);
+		mysqli_close($conn);
+	}
+}
+if(count($_POST) > 0){
+	if($_POST['type'] == 3){
+		$id = $_POST['id'];
+		$sql = "DELETE FROM `module` WHERE m_code = '$id' ";
+		if (mysqli_query($conn, $sql)) {
+			echo $id;
+            $logAction = "Delete Module success " . addslashes($sql);
+		} 
+		else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $logAction = "Delete Module error " . addslashes($sql);
+		}
+		writeLog($logAction);
+		mysqli_close($conn);
+	}
+}
+if(count($_POST) > 0){
+	if($_POST['type'] == 4){
+		$id = $_POST['id'];
+		$sql = "UPDATE `module` SET `m_st` = 0,  m_st_change_on = now() WHERE m_code = '$id'";
+		if (mysqli_query($conn, $sql)) {
+			echo $id;
+            $logAction = "Disable Module success " . addslashes($sql);
+		}
+		else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $logAction = "Disable Module error " . addslashes($sql);
+		}
+		writeLog($logAction);
+		mysqli_close($conn);
+	}
+}
+?>

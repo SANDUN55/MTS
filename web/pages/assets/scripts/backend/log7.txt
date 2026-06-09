@@ -1,0 +1,3 @@
+148
+INSERT INTO classtopics_staff (topic_id, class_group, staff)
+                                VALUES (21783, 'A', 1572);

@@ -1,0 +1,29 @@
+SELECT 
+    CONCAT(class_id, '-', class_topic_id) as class_reserve_id, 
+    class_topic, 
+    class_start, 
+    class_end, 
+    classtopics_staff.class_group, 
+    GROUP_CONCAT(CONCAT(staff.t_nm, '. ', staff.firstname, ' ', staff.surname) SEPARATOR ', ') AS stVAL,
+    a_name, 
+    a_type, 
+    lab_nm, 
+    class_remark, 
+    div_color 
+FROM classschedules
+JOIN classtopics ON class_topic_id = topic_id
+LEFT JOIN classtopics_staff ON classtopics_staff.topic_id = classtopics.topic_id
+LEFT JOIN staff ON classtopics_staff.staff = staff.st_id
+LEFT JOIN divisions ON staff.dep_code = div_id
+JOIN activity ON a_id = activity
+LEFT JOIN lab ON lab.lab_code = classschedules.lab_code
+WHERE class_status = 3 AND b_no = 33 AND m_code = 'URIN2 '
+GROUP BY class_id, class_topic_id
+ORDER BY class_id;SELECT CONCAT (class_id, '-', class_topic_id) as class_reserve_id, class_topic, class_start, class_end, class_group, div_nm, a_name, a_type, lab_nm, class_remark, div_color
+FROM `classschedules`
+ JOIN classtopics ON class_topic_id = topic_id
+LEFT JOIN divisions ON div_id = dep_code 
+JOIN activity ON a_id = activity
+LEFT JOIN lab on lab.lab_code = classschedules.lab_code
+WHERE classtopics.dep_code = classtopics.staff  AND class_status = 3 AND b_no = 33 AND m_code = 'URIN2 '
+ORDER BY `class_id`;

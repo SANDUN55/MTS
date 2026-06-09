@@ -1,0 +1,1 @@
+SELECT CONCAT (t_nm, '. ', firstname, ' ', surname ) AS stnm, img, url FROM staff WHERE username = 'anuradhadassa' 

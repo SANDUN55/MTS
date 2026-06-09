@@ -1,0 +1,1 @@
+SELECT st_id, CONCAT (t_nm, ' ', firstname, ' ', surname ) as staffNm, div_nm  FROM staff WHERE st_cat IN (2, 3,6)  AND dep_code  = 1 ORDER BY div_nm, firstname ASC;

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Force Calendar Refresh</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .refresh-btn { 
+            background: #2E7D32; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            cursor: pointer; 
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .refresh-btn:hover { background: #1B5E20; }
+        .status { margin: 10px 0; padding: 10px; background: #f0f0f0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h2>Force Calendar Refresh</h2>
+    <div class="status">
+        <strong>Current Status:</strong> Calendar should show confirmed classes as green blocks with time ranges only.
+    </div>
+    
+    <button class="refresh-btn" onclick="clearCacheAndReload()">Clear Cache & Reload Calendar</button>
+    
+    <div id="calendar" style="margin-top: 20px;"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css">
+    
+    <script>
+        function clearCacheAndReload() {
+            // Clear any cached data
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            // Force reload with timestamp
+            const timestamp = new Date().getTime();
+            window.location.href = '../timetableDisplay.php?id=34-ALIM2-Alimentary%202%20Module&refresh=' + timestamp;
+        }
+        
+        $(document).ready(function() {
+            var calendar = $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'month'
+                },
+                defaultView: 'month',
+                eventSources: [
+                    {
+                        url: '../assets/scripts/backend/load_timetable.php',
+                        data: {
+                            custom_param1: 34,
+                            custom_param2: 'ALIM2',
+                            custom_param3: 1,
+                            _: new Date().getTime()
+                        },
+                        color: '#2E7D32',
+                        textColor: 'white',
+                        borderColor: '#1B5E20'
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

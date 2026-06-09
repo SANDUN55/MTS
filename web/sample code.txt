@@ -1,0 +1,11 @@
+create view faculty.divisions as (select * from staffdb.divisions) 
+
+UPDATE `staff` SET `username`= SUBSTRING_INDEX( `st_em`, '@', 1 ) 
+
+INSERT IGNORE INTO `users` (`user_nm`, `user_cat`, `user_pw`, `user_auth`) SELECT username, '4' as cat, 'pwd' as usrpwd, 'l' as auth FROM staff WHERE st_id IN (1,2)
+//username mustbe unique key 
+
+https://stackoverflow.com/questions/409496/prevent-direct-access-to-a-php-include-file
+https://thisinterestsme.com/prevent-direct-access-php-file/
+
+minify the code .min.js
