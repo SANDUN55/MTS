@@ -1,4 +1,7 @@
 <?php
+
+// === ADD THIS LINE RIGHT HERE (at the very top) ===
+date_default_timezone_set('Asia/Colombo');  // Sri Lanka time
 include 'database.php';
 database_conectivity();
 session_start();
@@ -58,10 +61,17 @@ if (count($_POST) > 0) {
         $module = $_POST['getMod'];
         $activity = $_POST['selectActivity'];
         $topic = addslashes(trim($_POST['classTopic']));
-        $phpStTime = $_POST['classStTime'];
+$phpStTime = trim($_POST['classStTime']);
         $classStTime = date('Y-m-d H:i', strtotime($phpStTime));
         $phpEnTime = $_POST['classEnTime'];
-        $classEnTime = date('Y-m-d H:i', strtotime($phpEnTime));
+   $phpEnTime = trim($_POST['classEnTime']);
+
+$dtStart = new DateTime($phpStTime);
+    $dtEnd   = new DateTime($phpEnTime);
+
+    $classStTime = $dtStart->format('Y-m-d H:i');
+    $classEnTime = $dtEnd->format('Y-m-d H:i');
+
         $labArray = $_POST['selectLab'];
         $lab = isset($labArray[0]) ? $labArray[0] : 0;  // safer
 
@@ -313,15 +323,35 @@ if (count($_POST) > 0) {
 
         // Update data
         mysqli_query($conn, 'LOCK TABLES classtopics WRITE, classtopics_new WRITE, classschedules WRITE, classtopics_staff WRITE');
+$sql = "";
 
-        $sql = "";
-        if ($dep !== null && $staff !== null) {
-            $sql .= "UPDATE classtopics SET class_topic='$topic', dep_code=$dep, staff=$staff, class_group='$group' WHERE topic_id=$topicId;";
-            $sql .= "UPDATE classtopics_new SET class_topic='$topic', dep_code=$dep WHERE topic_id=$topicId;";
-        } else {
-            $sql .= "UPDATE classtopics SET class_topic='$topic', class_group='$group' WHERE topic_id=$topicId;";
-            $sql .= "UPDATE classtopics_new SET class_topic='$topic' WHERE topic_id=$topicId;";
-        }
+// Always update activity + other fields
+if ($dep !== null && $staff !== null) {
+    $sql .= "UPDATE classtopics 
+             SET class_topic = '$topic', 
+                 activity = " . intval($activity) . ", 
+                 dep_code = $dep, 
+                 staff = $staff, 
+                 class_group = '$group' 
+             WHERE topic_id = $topicId;";
+
+    $sql .= "UPDATE classtopics_new 
+             SET class_topic = '$topic', 
+                 activity = " . intval($activity) . ", 
+                 dep_code = $dep 
+             WHERE topic_id = $topicId;";
+} else {
+    $sql .= "UPDATE classtopics 
+             SET class_topic = '$topic', 
+                 activity = " . intval($activity) . ", 
+                 class_group = '$group' 
+             WHERE topic_id = $topicId;";
+
+    $sql .= "UPDATE classtopics_new 
+             SET class_topic = '$topic', 
+                 activity = " . intval($activity) . " 
+             WHERE topic_id = $topicId;";
+}
 
         $sql .= "UPDATE classschedules SET lab_code=$lab, class_remark='$classremark' WHERE class_id=$classId;";
         $d = mysqli_multi_query($conn, $sql);

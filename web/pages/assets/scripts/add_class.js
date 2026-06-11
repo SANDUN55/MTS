@@ -60,26 +60,31 @@ picker.addEventListener('input', function(e){
                 url: "assets/scripts/backend/add_class.php",
                 dataType: "json",
                 timeout: 10000,
-                success: function (dataResult) {
-                    console.log('Response received:', dataResult); // Debug log
-                    if (dataResult.statusCode == 200) {
-                        alert('Data added successfully!');
-                        // Refresh the iframe to show the new class
-                        var iframe = $('#myIframe');
-                        if (iframe.length) {
-                            var currentSrc = iframe.attr('src');
-                            iframe.attr('src', currentSrc); // Force reload
-                        }
-                        // Reload the page after a short delay
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1000);
-                    } else if (dataResult.statusCode == 400) {
-                        alert('Error: ' + (dataResult.message || 'Failed to add data'));
-                    } else {
-                        alert('Unexpected response: ' + JSON.stringify(dataResult));
-                    }
-                },
+               success: function (dataResult) {
+    console.log('Response:', dataResult);
+    
+    if (dataResult.statusCode == 200) {
+        alert('Data added successfully!');
+        
+        // Refresh iframe if exists (timetable page)
+        var iframe = parent.$('#myIframe') || $('#myIframe');
+        if (iframe.length) {
+            var currentSrc = iframe.attr('src');
+            iframe.attr('src', currentSrc + (currentSrc.indexOf('?') > -1 ? '&' : '?') + 't=' + new Date().getTime());
+        } else {
+            // If not in iframe, reload current page
+            setTimeout(function() {
+                location.reload();
+            }, 800);
+        }
+        
+        // Optional: Reset form
+        $("#user_form")[0].reset();
+    } 
+    else if (dataResult.statusCode == 400) {
+        alert('Error: ' + (dataResult.message || 'Failed to add class'));
+    }
+},
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.error('AJAX Error:', textStatus, errorThrown); // Debug log
                     console.error('Response Text:', jqXHR.responseText); // Log actual response

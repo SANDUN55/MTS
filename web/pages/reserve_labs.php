@@ -67,7 +67,7 @@ if (!$result) {
                             }
                         }
                         echo "<script> alert('Available Laboratories  Reserved, Please check the reports and clarify.'); </script>";
-                        header("Location:reservation_details.php");
+                    //    header("Location:reservation_details.php");
                     }
                     ?>
 <div class="container">
@@ -114,7 +114,6 @@ if (!$result) {
                 $bno = isset($str[0]) ? (int)$str[0] : 0;
 $mcode = isset($str[1]) ? mysqli_real_escape_string($conn, trim($str[1])) : '';
                 echo "<h3>". htmlspecialchars($selectVal) ."</h3><br>";
-                echo "<pre>$get_classtimes</pre>";
 
                 $get_classtimes1 = "
                     SELECT 

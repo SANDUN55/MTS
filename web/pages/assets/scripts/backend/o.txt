@@ -1,15 +1,15 @@
- : Dr. C Wasanthi Subasinghe : Anatomy Lab : 
+abs : Professor. Tiran Dias : Main Auditorium : 
 Array
 (
-    [class_reserve_id] => 21839-21784
-    [class_topic] => aaa
-    [class_start] => 2026-06-11 08:59:00
-    [class_end] => 2026-06-11 10:00:00
-    [class_group] => All
-    [stVAL] => Dr. C Wasanthi Subasinghe
-    [a_name] => Lecture
-    [a_type] => N
-    [lab_nm] => Anatomy Lab
+    [class_reserve_id] => 21879-21812
+    [class_topic] => test
+    [class_start] => 2026-06-17 08:47:00
+    [class_end] => 2026-06-17 10:47:00
+    [class_group] => abs
+    [stVAL] => Professor. Tiran Dias
+    [a_name] => Drama
+    [a_type] => G
+    [lab_nm] => Main Auditorium
     [class_remark] => 
-    [div_color] => #8bc34a
+    [div_color] => #cddc39
 )
