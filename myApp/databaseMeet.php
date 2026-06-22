@@ -1,7 +1,12 @@
 <?php
+// $servername = "localhost";
+// $username = "stauser";
+// $password = "flgO[(u_rV(l.ZgZ";
+// $db = "staffmed";
+
 $servername = "localhost";
-$username = "stauser";
-$password = "flgO[(u_rV(l.ZgZ";
+$username = "root";
+$password = "";
 $db = "staffmed";
 
 // Create connection

@@ -76,7 +76,7 @@ if(!isset($_SESSION["userLoggedIn"]) || $_SESSION["userLoggedIn"] !== true)
                                         <div class='fc-event'  data-duration='03:00' data-event="<?php /*echo $row["tids"]; */?>"><?php /*echo $row["class_topic"] . ' (' . $row["a_name"] . ') '; */?></div>
                                     <?php /*     } */?>
                                 </div></div>
-                            <script>
+                            <script> 
                                 $("#hideme").click(function () {
                                     $(".obj2").hide('slide', {
                                         direction: 'left'
