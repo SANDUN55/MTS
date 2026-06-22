@@ -17,7 +17,7 @@ $(document).ready(function() {
              listDay: { buttonText: 'list day' },
              listWeek: { buttonText: 'list week' }
          },
-         defaultView: 'month',
+         defaultView: 'agendaWeek',
         slotDuration: '00:15:00',
          minTime: '06:30:00',
          maxTime: '19:00:00',
