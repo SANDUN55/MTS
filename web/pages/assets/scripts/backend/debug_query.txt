@@ -1,4 +1,4 @@
-Batch: 33, Module: 'CGYN2 ', Status: 1
+Batch: 33, Module: 'PDFM2 ', Status: 0
 Query: SELECT 
     CONCAT(class_id, '-', class_topic_id) as class_reserve_id, 
     class_topic, 
@@ -18,7 +18,7 @@ LEFT JOIN staff ON classtopics_staff.staff = staff.st_id
 LEFT JOIN divisions ON staff.dep_code = div_id
 JOIN activity ON a_id = activity
 LEFT JOIN lab ON lab.lab_code = classschedules.lab_code
-WHERE class_status = 3 AND b_no = 33 AND TRIM(m_code) = TRIM('CGYN2 ')
+WHERE class_status = 0 AND b_no = 33 AND TRIM(m_code) = TRIM('PDFM2 ')
 GROUP BY class_id, class_topic_id
 ORDER BY class_id;SELECT 
     CONCAT(class_id, '-', class_topic_id) as class_reserve_id, 
@@ -40,7 +40,9 @@ LEFT JOIN staff ON classtopics_staff.staff = staff.st_id
 LEFT JOIN divisions ON div_id = dep_code 
 JOIN activity ON a_id = activity
 LEFT JOIN lab on lab.lab_code = classschedules.lab_code
-WHERE classtopics.dep_code = classtopics.staff  AND class_status = 3 AND b_no = 33 AND TRIM(m_code) = TRIM('CGYN2 ')
+WHERE classtopics.dep_code = classtopics.staff  AND class_status = 0 AND b_no = 33 AND TRIM(m_code) = TRIM('PDFM2 ')
 GROUP BY class_id, class_topic_id
 ORDER BY `class_id`;
-Found 147 classes with status FoFound 147 confirmed classes (status=1)
+Found 0 classes with status 3
+Found 26 confirmed classes (status=1)
+

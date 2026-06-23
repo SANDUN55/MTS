@@ -1,15 +1,15 @@
-A : Ms. K M Ranasinghe : Laboratory 02  (64 PCs) : 
+ : Ms. K M Ranasinghe : Lecture Hall-Hospital : 
 Array
 (
-    [class_reserve_id] => 21898-21831
-    [class_topic] => D
-    [class_start] => 2026-06-26 07:30:00
-    [class_end] => 2026-06-26 10:15:00
-    [class_group] => A
+    [class_reserve_id] => 21842-21787
+    [class_topic] => test
+    [class_start] => 2026-06-18 09:27:00
+    [class_end] => 2026-06-18 11:27:00
+    [class_group] => All
     [stVAL] => Ms. K M Ranasinghe
-    [a_name] => Community Attachment
-    [a_type] => G
-    [lab_nm] => Laboratory 02  (64 PCs)
+    [a_name] => Lecture
+    [a_type] => N
+    [lab_nm] => Lecture Hall-Hospital
     [class_remark] => 
     [div_color] => #2E7D32
 )

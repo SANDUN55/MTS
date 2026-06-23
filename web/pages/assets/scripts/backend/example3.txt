@@ -17,7 +17,7 @@ LEFT JOIN staff ON classtopics_staff.staff = staff.st_id
 LEFT JOIN divisions ON staff.dep_code = div_id
 JOIN activity ON a_id = activity
 LEFT JOIN lab ON lab.lab_code = classschedules.lab_code
-WHERE class_status = 1 AND b_no = 33 AND TRIM(m_code) = TRIM('CGYN2 ')
+WHERE class_status = 0 AND b_no = 33 AND TRIM(m_code) = TRIM('PDFM2 ')
 GROUP BY class_id, class_topic_id
 ORDER BY class_id;SELECT 
     CONCAT(class_id, '-', class_topic_id) as class_reserve_id, 
@@ -39,6 +39,6 @@ LEFT JOIN staff ON classtopics_staff.staff = staff.st_id
 LEFT JOIN divisions ON div_id = dep_code 
 JOIN activity ON a_id = activity
 LEFT JOIN lab on lab.lab_code = classschedules.lab_code
-WHERE classtopics.dep_code = classtopics.staff  AND class_status = 1 AND b_no = 33 AND TRIM(m_code) = TRIM('CGYN2 ')
+WHERE classtopics.dep_code = classtopics.staff  AND class_status = 0 AND b_no = 33 AND TRIM(m_code) = TRIM('PDFM2 ')
 GROUP BY class_id, class_topic_id
 ORDER BY `class_id`;

@@ -62,14 +62,32 @@
             <div class="app-header__content">
              <div class="app-header-left">
 <?php
-$batchhMod = array();
-$urlData = json_decode( base64_decode( $_GET['md'] ) );
-$getVal='';
-if($urlData) {
-$getVal = $urlData;
-$batchhMod = explode('-', $getVal);
+$batchhMod = [];
+$displayText = 'Module Timetable';
+
+if (isset($_GET['md']) && !empty($_GET['md'])) {
+    $decoded = base64_decode($_GET['md'], true);
+    
+    if ($decoded !== false) {
+        $urlData = json_decode($decoded, true);
+        
+        if ($urlData) {
+            $getVal = is_array($urlData) ? $urlData[0] ?? $urlData : $urlData;
+            $batchhMod = array_map('trim', explode('-', $getVal));
+            
+            // Build display text safely
+            if (count($batchhMod) >= 3) {
+                $displayText = 'Batch ' . $batchhMod[0] . ' - ' . $batchhMod[2];
+            } elseif (count($batchhMod) >= 2) {
+                $displayText = 'Batch ' . $batchhMod[0] . ' - ' . $batchhMod[1];
+            } elseif (count($batchhMod) >= 1) {
+                $displayText = 'Batch ' . $batchhMod[0];
+            }
+        }
+    }
 }
-                                ?><h2 align="center"> Batch <?php  echo $batchhMod[0]. ' - ' . $batchhMod[2]. ' Module' ; ?>  </h2>
+?>
+<h2 align="center"><?php echo htmlspecialchars($displayText); ?> Module</h2>
                     
 				</div>
                 <div class="app-header-right">
@@ -146,8 +164,7 @@ WHERE en_dt >= CURDATE() AND ttprogress = 3 ORDER BY b_no, modnm DESC; ";
 $result = mysqli_query($conn,$sql);
 while($row = mysqli_fetch_array($result)) {
     $val = $row ["val"];
-    $urlVal = base64_encode( json_encode($val) );
- ?>
+$urlVal = base64_encode( json_encode(trim($val)) ); ?>
                                  <li class="app-sidebar__heading"><i class="metismenu-icon pe-7s-date"></i>
                                     <a href="module-calendar.php?md=<?php echo $urlVal; ?>" data-toggle="tooltip" title="<?php echo ' Batch ' . $row ["b_no"] . ' - ' .$row ["modnm"]; ?>">
                                         BATCH <?php echo $row ["b_no"]. ' : ' . $row ["m_code"] ?> </a>
